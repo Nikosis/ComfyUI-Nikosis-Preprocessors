@@ -1,0 +1,14 @@
+[project]
+name = "comfyui-nikosis-preprocessors"
+description = "Nodes: DepthAnything v2, LineArt"
+version = "1.0.0"
+license = { file = "LICENSE" }
+dependencies  = []
+
+[project.urls]
+Repository = "https://github.com/Nikosis/ComfyUI-Nikosis-Preprocessors"
+
+[tool.comfy]
+PublisherId = "nikosis"
+DisplayName = "ComfyUI-Nikosis-Nodes"
+Icon = ""
