@@ -61,7 +61,6 @@ class LineArtSketchPreprocessorNikosis:
 
         return (torch.from_numpy(result_np).float() / 255.0,)
 
-
 NODE_CLASS_MAPPINGS = {"LineArtSketchPreprocessorNikosis": LineArtSketchPreprocessorNikosis}
 NODE_DISPLAY_NAME_MAPPINGS = {"LineArtSketchPreprocessorNikosis": "LineArt Sketch Preprocessor (nikosis)"}
 __all__ = ['NODE_CLASS_MAPPINGS', 'NODE_DISPLAY_NAME_MAPPINGS', 'LineArtSketchPreprocessorNikosis']
