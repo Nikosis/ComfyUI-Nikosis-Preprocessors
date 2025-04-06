@@ -4,6 +4,7 @@ import numpy as np
 #
 ### IMAGE TO (H,W,C3) #########################################################################################
 #
+
 def img_to_hwc3(img):
     """Converts an image to HWC format with 3 channels.
 
@@ -43,9 +44,11 @@ def img_to_hwc3(img):
         return (color * alpha + 255.0 * (1.0 - alpha)).clip(0, 255).astype(np.uint8)  # Blend & return
 
     raise ValueError(f"Unsupported image shape: {img.shape}")  # Fail-fast if unexpected input
+
 #
 ### RESIZE IMAGE AND CROP TO MULTIPLE OF - cv2 ##################################################################
 #
+
 def resize_and_crop_to_multiple_cv2(input_image, target_res, multiple=16, upscale_method="INTER_CUBIC",
                                     crop_from="symmetric", keep_proportion=True):
     H, W, C = input_image.shape
