@@ -35,7 +35,7 @@ def get_model_path(model_key: str, model_name: str) -> str:
 
     # Check existing paths
     if local_model_path.exists():
-        logger.info(f"Found {model_name} at {local_model_path}")
+        logger.info(f"Found {model_name} at {local_model_path} - Loading ...")
         return str(local_model_path)
 
     # Download if missing
