@@ -6,9 +6,9 @@ from ..logger import niko_logger as logger
 
 
 MODEL_REGISTRY: Dict[str, Dict[str, Any]] = {
-    "lineArt": {
+    "lineart": {
         "repo_id": "Nikos7766/lineart-models",
-        "subfolder": "controlnet/preprocessors/lineArt"
+        "subfolder": "controlnet/preprocessors/lineart"
     },
     "depthanythingv2": {
         "repo_id": "Nikos7766/DepthAnythingV2",

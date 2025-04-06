@@ -1,14 +1,15 @@
 import torch
 import numpy as np
+
 from comfy.utils import ProgressBar
+from ..processors.edge.edge import CannyDetector, LaplacianDetector, PrewittDetector, PyraCannyDetector, SobelDetector
 
-from ..processors.lineart.lineart import LineArtStandardDetector
 
-
-class LineArtPreprocessorNikosis:
+class EdgePreprocessorNikosis:
     def __init__(self):
         self.detector = {
-            "standard": LineArtStandardDetector(),
+            "canny": CannyDetector(), "laplacian": LaplacianDetector(), "prewitt": PrewittDetector(),
+            "pyracanny": PyraCannyDetector(), "sobel": SobelDetector(),
         }
 
     @classmethod
@@ -16,19 +17,19 @@ class LineArtPreprocessorNikosis:
         return {
             "required": {
                 "image": ("IMAGE",),
-                "model": (["standard",], {"default": "standard"}),
-                "sigma": ("FLOAT", {"default": 6.0, "min": 0.1, "max": 100.0}),
-                "intensity": ("INT", {"default": 8, "min": 0, "max": 16}),
-                "resolution": ("INT", {"default": 1024, "min": 64, "max": 2048, "step": 16}),
+                "model": (["canny", "laplacian", "prewitt", "pyracanny", "sobel"], {"default": "pyracanny"}),
+                "low_threshold": ("INT", {"default": 100, "min": 0, "max": 255}),
+                "high_threshold": ("INT", {"default": 200, "min": 0, "max": 255}),
+                "resolution": ("INT", {"default": 512, "min": 64, "max": 2048, "step": 16}),
                 "keep_proportion": ("BOOLEAN", {"default": True, "label_on": "Enabled", "label_off": "Disabled"})
-            }
+            },
         }
 
     RETURN_TYPES = ("IMAGE",)
     FUNCTION = "commence"
     CATEGORY = "Nikosis Nodes/preprocessors"
 
-    def commence(self, image, model, sigma, intensity, resolution, keep_proportion=True):
+    def commence(self, image, model, low_threshold, high_threshold, resolution, keep_proportion, upscale_method="INTER_LANCZOS4"):
         detector = self.detector[model]
 
         # Handle resolution
@@ -46,10 +47,11 @@ class LineArtPreprocessorNikosis:
             # Process single image
             np_result = detector(
                 input_image=np_image,
-                gaussian_sigma=sigma,
-                intensity_threshold=intensity,
+                low_threshold=low_threshold,
+                high_threshold=high_threshold,
                 detect_resolution=detect_resolution,
-                keep_proportion=keep_proportion
+                upscale_method=upscale_method,
+                keep_proportion=keep_proportion,
             )
 
             # Convert back to tensor format
@@ -63,7 +65,6 @@ class LineArtPreprocessorNikosis:
 
         return (out_tensor,)
 
-
-NODE_CLASS_MAPPINGS = {"LineArtPreprocessorNikosis": LineArtPreprocessorNikosis}
-NODE_DISPLAY_NAME_MAPPINGS = {"LineArtPreprocessorNikosis": "️LineArt Preprocessor (nikosis)"}
-__all__ = ['NODE_CLASS_MAPPINGS', 'NODE_DISPLAY_NAME_MAPPINGS', 'LineArtPreprocessorNikosis']
+NODE_CLASS_MAPPINGS = {"EdgePreprocessorNikosis": EdgePreprocessorNikosis}
+NODE_DISPLAY_NAME_MAPPINGS = {"EdgePreprocessorNikosis": "Edge Preprocessor (nikosis)"}
+__all__ = ['NODE_CLASS_MAPPINGS', 'NODE_DISPLAY_NAME_MAPPINGS', 'EdgePreprocessorNikosis']

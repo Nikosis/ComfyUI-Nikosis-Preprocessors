@@ -2,3 +2,8 @@ torch
 huggingface_hub
 accelerate
 torchvision
+numpy
+opencv-python
+pillow
+huggingface-hub
+einops

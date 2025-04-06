@@ -1,6 +1,6 @@
 [project]
 name = "comfyui-nikosis-preprocessors"
-description = "Nodes: DepthAnything v2, LineArt"
+description = "Nodes: DepthAnything v2, LineArt, PyraCanny"
 version = "1.0.0"
 license = { file = "LICENSE" }
 dependencies  = []
@@ -10,5 +10,5 @@ Repository = "https://github.com/Nikosis/ComfyUI-Nikosis-Preprocessors"
 
 [tool.comfy]
 PublisherId = "nikosis"
-DisplayName = "ComfyUI-Nikosis-Nodes"
+DisplayName = "ComfyUI-Nikosis-Preprocessors"
 Icon = ""

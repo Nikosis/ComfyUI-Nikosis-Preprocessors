@@ -5,8 +5,9 @@ from torchvision import transforms
 from contextlib import nullcontext
 import comfy.model_management as mm
 from comfy.utils import ProgressBar, load_torch_file
+from ..logger import niko_logger as logger
 from ..utils.model_paths import get_model_path
-from ..utils.processors.depth_anything_v2.dpt import DepthAnythingV2
+from ..processors.depth_anything_v2.dpt import DepthAnythingV2
 
 try:
     from accelerate import init_empty_weights
@@ -72,7 +73,7 @@ class DepthAnythingV2Nikosis:
     RETURN_TYPES = ("IMAGE",)
     RETURN_NAMES = ("image",)
     FUNCTION = "commence"
-    CATEGORY = "Nikosis Nodes/Depth Anything V2"
+    CATEGORY = "Nikosis Nodes/preprocessors"
 
     def __init__(self):
         self.model = None
@@ -100,10 +101,8 @@ class DepthAnythingV2Nikosis:
             else:
                 self.model.load_state_dict(state_dict)
                 self.model.to(device)
-            # Fix device mismatch for cls_token
-            # if hasattr(self.model.pretrained, 'cls_token'):
-            #     self.model.pretrained.cls_token = self.model.pretrained.cls_token.to(device)
             self.model.eval()
+            logger.info(f"Loaded {model_name} model from: {model_path}")
         return {"model": self.model, "dtype": dtype, "is_metric": self.model.is_metric}
 
     def commence(self, model, images, manual_resolution=False, resolution=1024):
@@ -146,9 +145,9 @@ class DepthAnythingV2Nikosis:
         final_H, final_W = (orig_H // 2) * 2, (orig_W // 2) * 2
 
         if manual_resolution and (depth_out.shape[1] != manual_H or depth_out.shape[2] != manual_W):
-            depth_out = F.interpolate(depth_out.permute(0, 3, 1, 2), size=(manual_H, manual_W), mode="bilinear").permute(0, 2, 3, 1)
+            depth_out = F.interpolate(depth_out.permute(0, 3, 1, 2), size=(manual_H, manual_W), mode="area").permute(0, 2, 3, 1)
         else:
-            depth_out = F.interpolate(depth_out.permute(0, 3, 1, 2), size=(final_H, final_W), mode="bilinear").permute(0, 2, 3, 1)
+            depth_out = F.interpolate(depth_out.permute(0, 3, 1, 2), size=(final_H, final_W), mode="area").permute(0, 2, 3, 1)
 
         depth_out = torch.clamp((depth_out - depth_out.min()) / (depth_out.max() - depth_out.min()), 0, 1)
         if model_bundle['is_metric']:
@@ -164,5 +163,5 @@ class DepthAnythingV2Nikosis:
 
 
 NODE_CLASS_MAPPINGS = {"DepthAnythingV2Nikosis": DepthAnythingV2Nikosis}
-NODE_DISPLAY_NAME_MAPPINGS = {"DepthAnythingV2Nikosis": "️🖌 Depth Anything V2 (nikosis)"}
+NODE_DISPLAY_NAME_MAPPINGS = {"DepthAnythingV2Nikosis": "️Depth Anything V2 (nikosis)"}
 __all__ = ['NODE_CLASS_MAPPINGS', 'NODE_DISPLAY_NAME_MAPPINGS', 'DepthAnythingV2Nikosis']
