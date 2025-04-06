@@ -1,6 +1,6 @@
 [project]
 name = "comfyui-nikosis-preprocessors"
-description = "Nodes: DepthAnything v2, LineArt, PyraCanny"
+description = "Nodes: DepthAnything v2, LineArt, PyraCanny, Sketch"
 version = "1.0.0"
 license = { file = "LICENSE" }
 dependencies  = []
