@@ -2,10 +2,10 @@
 
 A collection of custom nodes for [ComfyUI](https://github.com/comfyanonymous/ComfyUI) designed to enhance your workflow with utilities for:
 
-- [Depth Anything v2](#Depth Anything v2)
-- [Edge Preprocessor](#Edge Preprocessor)
-- [LineArt Preprocessor](#LineArt Preprocessor)
-- [LineArt Sketch Preprocessor](#LineArt Sketch Preprocessor)
+- [Depth Anything v2](#depth-anything-v2)
+- [Edge Preprocessor](#edge-preprocessor)
+- [LineArt Preprocessor](#lineart-preprocessor)
+- [LineArt Sketch Preprocessor](#lineArt-sketch-preprocessor)
 
 ## Installation
 
