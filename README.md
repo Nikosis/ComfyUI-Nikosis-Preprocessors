@@ -5,7 +5,7 @@ A collection of custom nodes for [ComfyUI](https://github.com/comfyanonymous/Com
 - [Depth Anything v2](#depth-anything-v2)
 - [Edge Preprocessor](#edge-preprocessor)
 - [LineArt Preprocessor](#lineart-preprocessor)
-- [LineArt Sketch Preprocessor](#lineArt-sketch-preprocessor)
+- [LineArt Sketch Preprocessor](#lineart-sketch-preprocessor)
 
 ## Installation
 
@@ -32,7 +32,7 @@ A collection of custom nodes for [ComfyUI](https://github.com/comfyanonymous/Com
 
 # Nodes Overview
 
-## Depth Anything
+## Depth Anything v2
 
 ### Description
 

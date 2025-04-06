@@ -1,5 +1,3 @@
-# ComfyUI/custom_nodes/comfyui-nikosis-preprocessors/__init__.py
-
 import os
 import toml
 from .logger import niko_logger as logger
@@ -21,4 +19,4 @@ except (FileNotFoundError, KeyError):
     version = "Unknown"
 
 # Print with empty lines and version
-logger.niko_log(f"\n\n\033[32mNikosis Preprocessor Nodes Loaded Successfully - v{version}\033[0m\n")
+logger.niko_log(f"\n\033[32mNikosis Preprocessor Nodes Loaded Successfully - v{version}\033[0m")
