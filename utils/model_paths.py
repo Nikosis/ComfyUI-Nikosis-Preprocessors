@@ -30,7 +30,7 @@ def get_model_path(model_key: str, model_name: str) -> str:
     # Check in ComfyUI - configured paths
     registered_path = folder_paths.get_full_path(model_key, model_name)
     if registered_path and Path(registered_path).exists():
-        logger.info(f"Found - {model_name} in registered path: {registered_path}")
+        logger.info(f"Found - {model_name} in registered path: {registered_path} - Loading ...")
         return str(registered_path)
 
     # Check existing paths
